@@ -7,7 +7,8 @@ x.x.x Release notes (yyyy-MM-dd)
 
 ### Enhancements
 
-* None.
+* Improve startup performance with large numbers of `RLMObject`/`Object`
+  subclasses.
 
 ### Bugfixes
 
