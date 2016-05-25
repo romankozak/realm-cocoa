@@ -232,6 +232,11 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
             [s_localNameToClass enumerateKeysAndObjectsUsingBlock:^(NSString *, Class cls, BOOL *) {
                 RLMRegisterClass(cls);
             }];
+
+            // We only need to track which classes were generated so that we
+            // can skip them in the enumeration above, so now that it's complete
+            // we no longer need to do that (and it can get kinda expensive)
+            RLMStopTrackingGeneratedClasses();
         }
         catch (...) {
             s_sharedSchemaState = SharedSchemaState::Uninitialized;

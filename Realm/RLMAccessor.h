@@ -40,6 +40,10 @@ Class RLMStandaloneAccessorClassForObjectClass(Class objectClass, RLMObjectSchem
 // Check if a given class is a generated accessor class
 bool RLMIsGeneratedClass(Class cls);
 
+// Stop tracking which classes are generated accessor classes after that
+// information is no longer needed (i.e. after the shared schema is initialized)
+void RLMStopTrackingGeneratedClasses();
+
 //
 // Dynamic getters/setters
 //

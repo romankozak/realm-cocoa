@@ -688,16 +688,23 @@ void RLMReplaceSharedSchemaMethod(Class accessorClass, RLMObjectSchema *schema) 
     class_addMethod(metaClass, @selector(sharedSchema), imp, "@@:");
 }
 
+static NSObject *s_generatedClassesLock = [NSObject new];
 static NSMutableSet *s_generatedClasses = [NSMutableSet new];
 static void RLMMarkClassAsGenerated(Class cls) {
-    @synchronized (s_generatedClasses) {
+    @synchronized (s_generatedClassesLock) {
         [s_generatedClasses addObject:cls];
     }
 }
 
 bool RLMIsGeneratedClass(Class cls) {
-    @synchronized (s_generatedClasses) {
+    @synchronized (s_generatedClassesLock) {
         return [s_generatedClasses containsObject:cls];
+    }
+}
+
+void RLMStopTrackingGeneratedClasses() {
+    @synchronized (s_generatedClassesLock) {
+        s_generatedClasses = nil;
     }
 }
 
