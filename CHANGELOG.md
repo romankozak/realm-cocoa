@@ -240,7 +240,7 @@ No changes since 0.103.2.
 * Add information about what rows were added, removed, or modified to the
   notifications sent to the Realm collections.
 * Improve error when illegally appending to an `RLMArray` / `List` property from a default value
-  or the standalone initializer (`init()`) before the schema is ready.
+  or the unmanaged object initializer (`init()`) before the schema is ready.
 
 ### Bugfixes
 
@@ -629,7 +629,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 
 ### Bugfixes
 
-* Setting the primary key property on persisted `RLMObject`s / `Object`s
+* Setting the primary key property on managed `RLMObject`s / `Object`s
   via subscripting or key-value coding will cause an exception to be thrown.
 * Fix crash due to race condition in `RLMRealmConfiguration` where the default
   configuration was in the process of being copied in one thread, while
@@ -768,10 +768,10 @@ Prebuilt frameworks are now built with Xcode 7.1.
 * Fixed an issue where the packaged OS X Realm.framework was built with
   `GCC_GENERATE_TEST_COVERAGE_FILES` and `GCC_INSTRUMENT_PROGRAM_FLOW_ARCS`
   enabled.
-* Fix a memory leak when constructing standalone Swift objects with NSDate
+* Fix a memory leak when constructing unmanaged Swift objects with NSDate
   properties.
 * Throw an exception rather than asserting when an invalidated object is added
-  to an RLMArray.
+  to an `RLMArray`.
 * Fix a case where data loss would occur if a device was hard-powered-off
   shortly after a write transaction was committed which had to expand the Realm
   file.
@@ -781,7 +781,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 
 ### Bugfixes
 
-* Objects are no longer copied into standalone objects during object creation. This fixes an issue where
+* Objects are no longer copied into unmanaged objects during object creation. This fixes an issue where
   nested objects with a primary key are sometimes duplicated rather than updated.
 * Comparison predicates with a constant on the left of the operator and key path on the right now give
   correct results. An exception is now thrown for predicates that do not yet support this ordering.
@@ -824,7 +824,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 * `RLMObject`, `RLMResults`, `Object` and `Results` can now be safely
   deallocated (but still not used) from any thread.
 * Improve performance of `-[RLMArray indexOfObjectWhere:]` and `-[RLMArray
-  indexOfObjectWithPredicate:]`, and implement them for standalone RLMArrays.
+  indexOfObjectWithPredicate:]`, and implement them for unmanaged RLMArrays.
 * Improved performance of most simple queries.
 
 ### Bugfixes
@@ -849,7 +849,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 
 ### Bugfixes
 
-* Swift: Enumerating through a standalone `List` whose objects themselves
+* Swift: Enumerating through an unmanaged `List` whose objects themselves
   have list properties won't crash.
 * Swift: Using a subclass of `RealmSwift.Object` in an aggregate operator of a predicate
   no longer throws a spurious type error.
@@ -1006,7 +1006,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 
 * An exception will now be thrown when calling `-beginWriteTransaction` from within a notification
   triggered by calling `-beginWriteTransaction` elsewhere.
-* When calling `delete:` we now verify that the object being deleted is persisted in the target Realm.
+* When calling `delete:` we now verify that the object being deleted is actually managed by the target Realm.
 * Fix crash when calling `createOrUpdate:inRealm` with nested linked objects.
 * Use the key from `+[RLMRealm setEncryptionKey:forRealmsAtPath:]` in
   `-writeCopyToPath:error:` and `+migrateRealmAtPath:`.
@@ -1173,7 +1173,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 
 ### API breaking changes
 
-* Deallocating an RLMRealm instance in a write transaction lacking an explicit
+* Deallocating an `RLMRealm` instance in a write transaction lacking an explicit
   commit/cancel will now be automatically cancelled instead of committed.
 * `-[RLMObject isDeletedFromRealm]` has been renamed to `-[RLMObject isInvalidated]`.
 
@@ -1185,8 +1185,8 @@ Prebuilt frameworks are now built with Xcode 7.1.
   queries on array properties.
 * Make fast enumeration of `RLMArray` and `RLMResults` ~30% faster and
   `objectAtIndex:` ~55% faster.
-* Added a lldb visualizer script for displaying the contents of persisted
-  RLMObjects when debugging.
+* Added a lldb visualizer script for displaying the contents of managed
+  `RLMObject`s when debugging.
 * Added method `-setDefaultRealmPath:` to change the default Realm path.
 * Add `-[RLMRealm invalidate]` to release data locked by the current thread.
 
@@ -1278,7 +1278,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 * Preserve the sort order when querying a sorted `RLMResults`.
 * Fixed an issue with migrations where if a Realm file is deleted after a Realm is initialized,
   the newly created Realm can be initialized with an incorrect schema version.
-* Fix crash in `RLMSuperSet` when assigning to a `RLMArray` property on a standalone object.
+* Fix crash in `RLMSuperSet` when assigning to a `RLMArray` property on an unmanaged object.
 * Add an error message when the protocol for an `RLMArray` property is not a
   valid object type.
 * Add an error message when an `RLMObject` subclass is defined nested within
@@ -1323,9 +1323,9 @@ Prebuilt frameworks are now built with Xcode 7.1.
 
 ### Enhancements
 
-* Support subclassing RLMObject models. Although you can now persist subclasses,
-  polymorphic behavior is not supported (i.e. setting a property to an
-  instance of its subclass).
+* Support subclassing RLMObject models. Although you can now add subclasses,
+  to a Realm, polymorphic behavior is not supported (i.e. setting a property 
+  to an instance of its subclass).
 * Add support for sorting RLMArray properties.
 * Speed up inserting objects with `addObject:` by ~20%.
 * `readonly` properties are automatically ignored rather than having to be
@@ -1344,9 +1344,9 @@ Prebuilt frameworks are now built with Xcode 7.1.
   type when building for devices with Xcode 6.
 * Fix spurious notifications of new versions of Realm.
 * Fix for updating nested objects where some types do not have primary keys.
-* Fix for inserting objects from JSON with NSNull values when default values
+* Fix for inserting objects from JSON with `NSNull` values when default values
   should be used.
-* Trying to add a persisted RLMObject to a different Realm now throws an
+* Trying to add a managed `RLMObject` to a different Realm now throws an
   exception rather than creating an uninitialized object.
 * Fix validation errors when using IN on array properties.
 * Fix errors when an IN clause has zero items.
@@ -1457,7 +1457,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 ### Bugfixes
 
 * Fixed a memory leak when querying for objects.
-* Fixed initializing array properties on standalone Swift RLMObject subclasses.
+* Fixed initializing array properties on unmanaged Swift RLMObject subclasses.
 * Fix for queries on 64bit integers.
 
 0.82.0 Release notes (2014-08-05)
@@ -1487,7 +1487,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 * Fixed potential bug related to the handling of array properties (RLMArray).
 * Fixed bug where array properties accessed the wrong property.
 * Fixed bug that prevented objects with custom getters to be added to a Realm.
-* Fixed a bug where initializing a standalone object with an array literal would
+* Fixed a bug where initializing an unmanaged object with an array literal would
   trigger an exception.
 * Clarified exception messages when using unsupported NSPredicate operators.
 * Clarified exception messages when using unsupported property types on RLMObject subclasses.
@@ -1520,7 +1520,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 
 * Fixed Unicode support in property names and string contents (Chinese, Russian, etc.). Closing #612 and #604.
 * Fixed bugs related to migration when properties are removed.
-* Fixed keyed subscripting for standalone RLMObjects.
+* Fixed keyed subscripting for unmanaged RLMObjects.
 * Fixed bug related to double clicking on a .realm file to launch the Realm Browser (thanks to Dean Moore).
 
 

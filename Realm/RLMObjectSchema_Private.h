@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 // class used for this object schema
 @property (nonatomic, readwrite, assign) Class objectClass;
 @property (nonatomic, readwrite, assign) Class accessorClass;
-@property (nonatomic, readwrite, assign) Class standaloneClass;
+@property (nonatomic, readwrite, assign) Class unmanagedClass;
 
 @property (nonatomic, readwrite, nullable) RLMProperty *primaryKeyProperty;
 

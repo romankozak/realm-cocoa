@@ -497,7 +497,7 @@ RLM_ARRAY_TYPE(PrimaryEmployeeObject);
 
 - (void)testKeyedSubscripting
 {
-    // standalone
+    // unmanaged
     EmployeeObject *objs = [[EmployeeObject alloc] initWithValue:@{@"name" : @"Test0", @"age" : @23, @"hired": @NO}];
     XCTAssertEqualObjects(objs[@"name"], @"Test0",  @"Name should be Test0");
     XCTAssertEqualObjects(objs[@"age"], @23,  @"age should be 23");
@@ -849,8 +849,8 @@ static void testDatesInRange(NSTimeInterval from, NSTimeInterval to, void (^chec
     RLMRealm *realm = [RLMRealm realmWithConfiguration:configuration error:nil];
 
     [realm beginWriteTransaction];
-    RLMAssertThrowsWithReasonMatching([realm addObject:[[IntObject alloc] initWithValue:@[@1]]], @"Object type 'IntObject' is not persisted in the Realm.*custom `objectClasses`");
-    RLMAssertThrowsWithReasonMatching([IntObject createInRealm:realm withValue:@[@1]], @"Object type 'IntObject' is not persisted in the Realm.*custom `objectClasses`");
+    RLMAssertThrowsWithReasonMatching([realm addObject:[[IntObject alloc] initWithValue:@[@1]]], @"Object type 'IntObject' is not added to the Realm.*custom `objectClasses`");
+    RLMAssertThrowsWithReasonMatching([IntObject createInRealm:realm withValue:@[@1]], @"Object type 'IntObject' is not added to the Realm.*custom `objectClasses`");
     XCTAssertNoThrow([realm addObject:[[StringObject alloc] initWithValue:@[@"A"]]]);
     XCTAssertNoThrow([StringObject createInRealm:realm withValue:@[@"A"]]);
     [realm cancelWriteTransaction];
@@ -1721,7 +1721,7 @@ static void testDatesInRange(NSTimeInterval from, NSTimeInterval to, void (^chec
 {
     IntObject *obj = [[IntObject alloc] init];
 
-    // Standalone can be accessed from other threads
+    // Unmanaged object can be accessed from other threads
     [self dispatchAsyncAndWait:^{ XCTAssertNoThrow(obj.intCol = 5); }];
 
     [RLMRealm.defaultRealm beginWriteTransaction];

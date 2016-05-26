@@ -492,7 +492,7 @@ public final class Realm {
 
      Disabling `autorefresh` on a `Realm` without any strong references to it will not
      have any effect, and `autorefresh` will revert back to `true` the next time the Realm is created. This is normally
-     irrelevant as it means that there is nothing to refresh (as persisted `Object`s, `List`s, and `Results` have strong
+     irrelevant as it means that there is nothing to refresh (as managed `Object`s, `List`s, and `Results` have strong
      references to the `Realm` that manages them), but it means that setting
      `Realm().autorefresh = false` in
      `application(_:didFinishLaunchingWithOptions:)` and only later storing Realm
