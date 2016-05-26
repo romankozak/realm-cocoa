@@ -689,7 +689,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 
 ### Enhancements
 
-* Managed properties of `RLMObject`/`Object` subclasses are now Key-Value
+* Persisted properties of `RLMObject`/`Object` subclasses are now Key-Value
   Observing compliant.
 * The different options used to create Realm instances have been consolidated
   into a single `RLMRealmConfiguration`/`Realm.Configuration` object.
@@ -995,7 +995,7 @@ Prebuilt frameworks are now built with Xcode 7.1.
 ### Enhancements
 
 * Add support for sharing Realm files between processes.
-* The browser will no longer show objects that have no managed properties.
+* The browser will no longer show objects that have no persisted properties.
 * `RLMSchema`, `RLMObjectSchema`, and `RLMProperty` now have more useful descriptions.
 * Opening an encrypted Realm while a debugger is attached to the process no
   longer throws an exception.

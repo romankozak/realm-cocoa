@@ -83,18 +83,18 @@ public class Object: RLMObjectBase {
     /**
      Initializes an unmanaged instance of a Realm object.
 
-     Pass in an `Array<AnyObject>` or `Dictionary<String, AnyObject>` instance to set the values of the object's
-     properties, or any other valid object as described below.
+     The `value` argument is used to populate the object. It can be a key-value coding compliant object, an array or
+     dictionary returned from the methods in `NSJSONSerialization`, or an `Array` containing one element for each
+     managed property. An exception will be thrown if any required properties are not present and those properties were
+     not defined with default values. Do not pass in a `LinkingObjects` instance, either by itself or as a member of a
+     collection.
+
+     When passing in an `Array` as the `value` argument, all properties must be present, valid and in the same order as
+     the properties defined in the model.
 
      Call `add(_:)` on a `Realm` instance to add an unmanaged object into that Realm.
 
-     - parameter value:  The value used to populate the object. This can be any key-value coding compliant
-                         object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                         an `Array` containing one element for each managed property. An exception will be
-                         thrown if any required properties are not present and those properties were not defined with
-                         default values.
-                         When passing in an `Array`, all properties must be present,
-                         valid and in the same order as the properties defined in the model.
+     - parameter value:  The value used to populate the object.
     */
     public init(value: AnyObject) {
         self.dynamicType.sharedSchema() // ensure this class' objectSchema is loaded in the partialSharedSchema

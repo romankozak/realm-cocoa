@@ -132,14 +132,16 @@ NS_ASSUME_NONNULL_BEGIN
  
  If nested objects are included in the argument, `createInDefaultRealmWithValue:` will be recursively called
  on them.
+ 
+ The `value` argument can be a key-value coding compliant object, an array or dictionary returned from the methods in
+ `NSJSONSerialization`, or an `NSArray` containing one element for each managed property. An exception will be thrown if
+ any required properties are not present and those properties were not defined with default values. Do not pass in a
+ `RLMLinkingObjects` instance, either by itself or as a member of a collection.
 
- @param value    The value used to populate the object. This can be any key-value coding compliant
-                 object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each managed property. An exception will be
-                 thrown if any required properties are not present and those properties were not defined with
-                 default values.
-                 When passing in an `NSArray`, all properties must be present,
-                 valid and in the same order as the properties defined in the model.
+ When passing in an `NSArray` as the `value` argument, all properties must be present, valid and in the same order as
+ the properties defined in the model.
+
+ @param value    The value used to populate the object.
 
  @see   `defaultPropertyValues`
  */
@@ -151,14 +153,16 @@ NS_ASSUME_NONNULL_BEGIN
  If nested objects are included in the argument, `createInRealm:withValue:` will be recursively called
  on them.
  
+ The `value` argument can be a key-value coding compliant object, an array or dictionary returned from the methods in
+ `NSJSONSerialization`, or an `NSArray` containing one element for each managed property. An exception will be thrown if
+ any required properties are not present and those properties were not defined with default values. Do not pass in a
+ `RLMLinkingObjects` instance, either by itself or as a member of a collection.
+ 
+ When passing in an `NSArray` as the `value` argument, all properties must be present, valid and in the same order as
+ the properties defined in the model.
+
  @param realm    The Realm which should manage the newly-created object.
- @param value    The value used to populate the object. This can be any key-value coding compliant
-                 object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each managed property. An exception will be
-                 thrown if any required properties are not present and those properties were not defined with
-                 default values.
-                 When passing in an `NSArray`, all properties must be present,
-                 valid and in the same order as the properties defined in the model.
+ @param value    The value used to populate the object.
 
  @see   `defaultPropertyValues`
  */
@@ -176,14 +180,16 @@ NS_ASSUME_NONNULL_BEGIN
 
  If the argument is a Realm object already managed by the default Realm, the argument's type is the same
  as the receiver, and the objects have identical values for their managed properties, this method does nothing.
+ 
+ The `value` argument is used to populate the object. It can be a key-value coding compliant object, an array or
+ dictionary returned from the methods in `NSJSONSerialization`, or an `NSArray` containing one element for each managed
+ property. An exception will be thrown if any required properties are not present and those properties were not defined
+ with default values. Do not pass in a `RLMLinkingObjects` instance, either by itself or as a member of a collection.
 
- @param value    The value used to populate the object. This can be any key-value coding compliant
-                 object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each managed property. An exception will be
-                 thrown if any required properties are not present and those properties were not defined with
-                 default values.
-                 When passing in an `NSArray`, all properties must be present,
-                 valid and in the same order as the properties defined in the model.
+ When passing in an `NSArray` as the `value` argument, all properties must be present, valid and in the same order as
+ the properties defined in the model.
+
+ @param value    The value used to populate the object.
 
  @see   `defaultPropertyValues`, `primaryKey`
  */
@@ -201,15 +207,17 @@ NS_ASSUME_NONNULL_BEGIN
 
  If the argument is a Realm object already managed by the given Realm, the argument's type is the same
  as the receiver, and the objects have identical values for their managed properties, this method does nothing.
+ 
+ The `value` argument is used to populate the object. It can be a key-value coding compliant object, an array or
+ dictionary returned from the methods in `NSJSONSerialization`, or an `NSArray` containing one element for each managed
+ property. An exception will be thrown if any required properties are not present and those properties were not defined
+ with default values. Do not pass in a `RLMLinkingObjects` instance, either by itself or as a member of a collection.
+
+ When passing in an `NSArray` as the `value` argument, all properties must be present, valid and in the same order as
+ the properties defined in the model.
 
  @param realm    The Realm which should own the object.
- @param value    The value used to populate the object. This can be any key-value coding compliant
-                 object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each managed property. An exception will be
-                 thrown if any required properties are not present and those properties were not defined with
-                 default values.
-                 When passing in an `NSArray`, all properties must be present,
-                 valid and in the same order as the properties defined in the model.
+ @param value    The value used to populate the object.
 
  @see   `defaultPropertyValues`, `primaryKey`
  */
