@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  `RLMObject` is a base class for model objects representing data stored in Realms.
 
- Define your model classes by subclassing `RLMObject` and adding properties to be persisted. 
+ Define your model classes by subclassing `RLMObject` and adding properties to be managed.
  Then instantiate and use your custom subclasses instead of using the `RLMObject` class directly.
 
      // Dog.h
@@ -135,7 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param value    The value used to populate the object. This can be any key-value coding compliant
                  object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each persisted property. An exception will be
+                 an `NSArray` containing one element for each managed property. An exception will be
                  thrown if any required properties are not present and those properties were not defined with
                  default values.
                  When passing in an `NSArray`, all properties must be present,
@@ -154,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param realm    The Realm which should manage the newly-created object.
  @param value    The value used to populate the object. This can be any key-value coding compliant
                  object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each persisted property. An exception will be
+                 an `NSArray` containing one element for each managed property. An exception will be
                  thrown if any required properties are not present and those properties were not defined with
                  default values.
                  When passing in an `NSArray`, all properties must be present,
@@ -175,11 +175,11 @@ NS_ASSUME_NONNULL_BEGIN
  recursively called on them if they have primary keys, `createInDefaultRealmWithValue:` if they do not.
 
  If the argument is a Realm object already managed by the default Realm, the argument's type is the same
- as the receiver, and the objects have identical values for their persisted properties, this method does nothing.
+ as the receiver, and the objects have identical values for their managed properties, this method does nothing.
 
  @param value    The value used to populate the object. This can be any key-value coding compliant
                  object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each persisted property. An exception will be
+                 an `NSArray` containing one element for each managed property. An exception will be
                  thrown if any required properties are not present and those properties were not defined with
                  default values.
                  When passing in an `NSArray`, all properties must be present,
@@ -200,12 +200,12 @@ NS_ASSUME_NONNULL_BEGIN
  recursively called on them if they have primary keys, `createInRealm:withValue:` if they do not.
 
  If the argument is a Realm object already managed by the given Realm, the argument's type is the same
- as the receiver, and the objects have identical values for their persisted properties, this method does nothing.
+ as the receiver, and the objects have identical values for their managed properties, this method does nothing.
 
  @param realm    The Realm which should own the object.
  @param value    The value used to populate the object. This can be any key-value coding compliant
                  object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each persisted property. An exception will be
+                 an `NSArray` containing one element for each managed property. An exception will be
                  thrown if any required properties are not present and those properties were not defined with
                  default values.
                  When passing in an `NSArray`, all properties must be present,
@@ -223,7 +223,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) RLMRealm *realm;
 
 /**
- The object schema which lists the persisted properties for the object.
+ The object schema which lists the managed properties for the object.
  */
 @property (nonatomic, readonly) RLMObjectSchema *objectSchema;
 
@@ -266,8 +266,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSString *)primaryKey;
 
 /**
- Override this method to specify the names of properties to ignore. These properties will not be persisted within
- the Realm that manages the object.
+ Override this method to specify the names of properties to ignore. These properties will not be managed by the Realm
+ that manages the object.
 
  @return    An array of property names to ignore.
  */

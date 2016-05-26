@@ -117,21 +117,21 @@ class ObjectSchemaInitializationTests: TestCase {
         XCTAssertEqual(schema.properties.count, 1)
 
         assertThrows(RLMObjectSchema(forObjectClass: SwiftObjectWithAnyObject.self),
-                     "Should throw when not ignoring a property of a type we can't persist")
+                     "Should throw when not ignoring a property of a type we can't manage")
         assertThrows(RLMObjectSchema(forObjectClass: SwiftObjectWithStringArray.self),
-                     "Should throw when not ignoring a property of a type we can't persist")
+                     "Should throw when not ignoring a property of a type we can't manage")
         assertThrows(RLMObjectSchema(forObjectClass: SwiftObjectWithOptionalStringArray.self),
-                     "Should throw when not ignoring a property of a type we can't persist")
+                     "Should throw when not ignoring a property of a type we can't manage")
 
-        // Shouldn't throw when not ignoring a property of a type we can't persist if it's not dynamic
+        // Shouldn't throw when not ignoring a property of a type we can't manage if it's not dynamic
         _ = RLMObjectSchema(forObjectClass: SwiftObjectWithEnum.self)
-        // Shouldn't throw when not ignoring a property of a type we can't persist if it's not dynamic
+        // Shouldn't throw when not ignoring a property of a type we can't manage if it's not dynamic
         _ = RLMObjectSchema(forObjectClass: SwiftObjectWithStruct.self)
 
         assertThrows(RLMObjectSchema(forObjectClass: SwiftObjectWithDatePrimaryKey.self),
             "Should throw when setting a non int/string primary key")
         assertThrows(RLMObjectSchema(forObjectClass: SwiftObjectWithNSURL.self),
-            "Should throw when not ignoring a property of a type we can't persist")
+            "Should throw when not ignoring a property of a type we can't manage")
         assertThrows(RLMObjectSchema(forObjectClass: SwiftObjectWithNonOptionalLinkProperty.self),
             "Should throw when not marking a link property as optional")
     }

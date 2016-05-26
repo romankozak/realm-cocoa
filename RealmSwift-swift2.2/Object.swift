@@ -23,7 +23,7 @@ import Realm.Private
 /**
  `Object` is a class used to define Realm model objects.
 
- In Realm you define your model classes by subclassing `Object` and adding properties to be persisted.
+ In Realm you define your model classes by subclassing `Object` and adding properties to be managed.
  You then instantiate and use your custom subclasses instead of using the `Object` class directly.
 
  ```swift
@@ -90,7 +90,7 @@ public class Object: RLMObjectBase {
 
      - parameter value:  The value used to populate the object. This can be any key-value coding compliant
                          object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                         an `Array` containing one element for each persisted property. An exception will be
+                         an `Array` containing one element for each managed property. An exception will be
                          thrown if any required properties are not present and those properties were not defined with
                          default values.
                          When passing in an `Array`, all properties must be present,
@@ -112,7 +112,7 @@ public class Object: RLMObjectBase {
         return nil
     }
 
-    /// The object schema which lists the persisted properties for the object.
+    /// The object schema which lists the managed properties for the object.
     public var objectSchema: ObjectSchema {
         return ObjectSchema(RLMObjectBaseObjectSchema(self))
     }
@@ -157,7 +157,7 @@ public class Object: RLMObjectBase {
     public class func primaryKey() -> String? { return nil }
 
     /**
-     Override this method to specify the names of properties to ignore. These properties will not be persisted within
+     Override this method to specify the names of properties to ignore. These properties will not be managed by
      the Realm that manages the object.
 
      - returns: An array of property names to ignore.

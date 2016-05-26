@@ -99,7 +99,7 @@
 
  @param value    The value used to populate the object. This can be any key-value coding compliant
                  object, or an array or dictionary returned from the methods in `NSJSONSerialization`, or
-                 an `NSArray` containing one element for each persisted property. An exception will be
+                 an `NSArray` containing one element for each managed property. An exception will be
                  thrown if any required properties are not present and those properties were not defined with
                  default values.
 
