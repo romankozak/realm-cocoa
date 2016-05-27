@@ -115,7 +115,7 @@ public final class Migration {
 
     /**
      Creates and returns an `Object` of type `className` in the Realm being migrated.
-     
+
      The `value` argument is used to populate the object. It can be a key-value coding compliant object, an array or
      dictionary returned from the methods in `NSJSONSerialization`, or an `Array` containing one element for each
      managed property. An exception will be thrown if any required properties are not present and those properties were

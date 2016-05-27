@@ -241,7 +241,7 @@ public final class Realm {
      Only pass `true` to `update` if the object has a primary key. If no objects exist in
      the Realm with the same primary key value, the object is inserted. Otherwise,
      the existing object is updated with any changed values.
-     
+
      The `value` argument can be a key-value coding compliant object, an array or dictionary returned from the methods
      in `NSJSONSerialization`, or an `Array` containing one element for each managed property. An exception will be
      thrown if any required properties are not present and those properties were not defined with default values. Do not
@@ -278,7 +278,7 @@ public final class Realm {
      When 'update' is 'true', the object must have a primary key. If no objects exist in
      the Realm instance with the same primary key value, the object is inserted. Otherwise,
      the existing object is updated with any changed values.
-     
+
      The `value` argument is used to populate the object. It can be a key-value coding compliant object, an array or
      dictionary returned from the methods in `NSJSONSerialization`, or an `Array` containing one element for each
      managed property. An exception will be thrown if any required properties are not present and those properties were
